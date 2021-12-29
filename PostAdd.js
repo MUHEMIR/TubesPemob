@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet, TextInput, Alert } from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, Alert, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 
 export const PostAdd = ({ route, navigation }) => {
-const [username, setUsername] = useState("PEKZJr");
+const [username, setUsername] = useState("muh_emir_ghiff");
 const [textInputPost, setTextInputPost] = useState("");
 const saveData = async () => {
 try {
@@ -13,7 +13,7 @@ headers: {
 Accept: 'application/json',
 'Content-Type': 'application/json'
 },body: JSON.stringify({
-username: 'PEKZJr',
+username: 'muh_emir_ghiff',
 post: textInputPost
 })
 });
@@ -26,40 +26,84 @@ navigation.navigate('PostList');
 }
 }
 return (
-<View style={{ flex: 1 }}>
-<Text>Post</Text>
-<TextInput placeholder='tulis post di sini' style={styles.input} onChangeText={text=> setTextInputPost(text)} value={textInputPost} />
-<View style={{flexDirection:'row', justifyContent:'space-evenly'}}>
-<Button title="kembali" onPress={() => navigation.navigate('PostList')} />
-<Button title="simpan" onPress={() => saveData()}/>
+    <SafeAreaView>
+<View style={styles.container}>
+
+            <TouchableOpacity onPress={() => navigation.navigate('PostList')}>
+             <Image style={styles.button} source={{uri: 'https://img.icons8.com/material-outlined/24/ffffff/back.png' }} />
+             </TouchableOpacity>
+
+            <Text style={{color: 'white'}}>Add Post</Text>
 </View>
-</View>
+
+<View style={styles.inputContainer}>
+            <TextInput placeholder='What`s on your mind?' style={styles.input} onChangeText={text=> setTextInputPost(text)} value={textInputPost} />
+            </View>
+
+            <View style={styles.buttonContainer}>
+            <TouchableOpacity onPress={() => saveData()}>
+            <Image style={styles.buttonInput} source={{uri: 'https://img.icons8.com/ios-glyphs/32/000000/filled-sent.png' }} />
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+            <Image style={styles.buttonInput} source={{uri: 'https://img.icons8.com/ios-glyphs/32/000000/marker--v1.png' }} />
+            </TouchableOpacity>
+            </View>
+
+</SafeAreaView>
+
+
+            
+
+
+
+
+
+
+
+
 );
 }
 
 const styles = StyleSheet.create({
 input: {
-height: 40,
-margin: 12,
-borderWidth: 1,
-padding: 10,
-borderRadius:10,
-flex:1,
+height: 60,
 },
-button: {
-height: 40,
-margin: 12,
-borderWidth: 1,
-padding: 10,
-borderRadius:10,
-backgroundColor: '#68a0cf',
-borderColor: '#fff',
-flex:1,
+
+inputContainer: {
+    marginTop:100,
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginLeft: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 350,
 },
-logo: {
-height:75,
-width:300,
-resizeMode:'contain',
-flex:1,
-},
+
+container:{
+        backgroundColor: '#171615',
+        height: 40,
+        
+        alignItems: 'center',
+        flexDirection: 'row',        
+
+    },
+    
+    button:{
+        width: 24,
+        height: 24,
+        marginRight: 150,
+    },
+
+    buttonContainer:{
+        flexDirection: 'row-reverse',
+        marginLeft: 20,
+    },
+    
+    buttonInput:{
+        width: 32,
+        height: 32,
+    }
+
 });

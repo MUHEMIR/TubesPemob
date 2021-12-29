@@ -32,10 +32,15 @@ return (
              </TouchableOpacity>
         </View>
 
-
-    
+            
 <View style={{ flex: 1, padding: 4, backgroundColor: '#E2E2E2' }}>
-  
+
+            <View style={styles.refresh}>
+            <TouchableOpacity onPress={() => getData('')}>
+             <Image style={styles.button} source={{uri: 'https://img.icons8.com/ios-glyphs/48/000000/refresh.png' }} />
+             </TouchableOpacity>
+             </View>
+    
 {
 data.map((item) => (
 <TouchableOpacity onPress={() => navigation.navigate('PostDetail',
@@ -43,7 +48,7 @@ data.map((item) => (
     <View style={{backgroundColor: 'white', margin: 4, padding: 4}}>
     <View style={{flexDirection:'row'}}>
     <View>
-<Image source={{uri:'http://10.0.2.2:3000/images/BZN.png'}}
+<Image source={{uri:'https://img.icons8.com/ios-glyphs/30/000000/user.png'}}
 style={{width: 50, height: 50, resizeMode:'contain'}}/>
 </View>
 <View style={{marginLeft: 10}}>
@@ -83,6 +88,11 @@ const styles = StyleSheet.create({
         
         width: 24,
         height: 24,
+    },
+
+    refresh: {
+        alignItems: 'flex-end',
+        marginRight: 45
     }
 
 })

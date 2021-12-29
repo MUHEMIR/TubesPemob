@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { View, Text, Button, Image } from 'react-native';
+import { View, Text, Button, Image, StyleSheet, TouchableOpacity } from 'react-native';
+
+
+
 export const PostDetail = ({ route, navigation }) => {
 const { itemId } = route.params;
 const [isLoading, setLoading] = useState(true);
@@ -33,13 +36,25 @@ useEffect(() => {
 getData();
 }, []);
 return (
-<View style={{ flex: 1, padding: 4, backgroundColor: '#E2E2E2' }}>
+    
+<View style={{ flex: 1, backgroundColor: '#E2E2E2' }}>
+     <View style={styles.container}>
+    
+             <TouchableOpacity onPress={() => navigation.navigate('PostList')}>
+             <Image style={styles.button} source={{uri: 'https://img.icons8.com/material-outlined/24/ffffff/back.png' }} />
+             </TouchableOpacity>
+
+            <Text style={{color: 'white'}}>Post</Text>
+        </View>
+
+
+
 {
 data.map((item) => (
-<View style={{backgroundColor: 'white', margin: 4, padding: 4}}>
+<View style={{backgroundColor: 'white', margin: 4, padding: 4, marginTop: 4}}>
 <View style={{flexDirection:'row'}}>
 <View>
-<Image source={{uri:'http://10.0.2.2:3000/images/user.png'}}
+<Image source={{uri:'https://img.icons8.com/ios-glyphs/30/000000/user.png'}}
 style={{width: 50, height: 50, resizeMode:'contain'}}/>
 </View>
 <View style={{marginLeft: 10}}>
@@ -49,15 +64,21 @@ style={{width: 50, height: 50, resizeMode:'contain'}}/>
 </View>
 <View>
 <Text>{item.post}</Text>
+<View style={styles.buttonContainer}>
+
+        <TouchableOpacity onPress={() => deleteData()} >
+        <Image style={styles.buttonInput} source={{uri: 'https://img.icons8.com/ios-glyphs/32/000000/filled-trash.png' }} />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate('PostEdit', {itemId})} >
+        <Image style={styles.buttonInput} source={{uri: 'https://img.icons8.com/ios-glyphs/32/000000/edit--v2.png' }} />
+        </TouchableOpacity>
+</View>
+
 </View>
 </View>
 ))}
-<View style={{flexDirection:'row', justifyContent:'space-evenly'}}>
 
-<Button title="hapus" onPress={() => deleteData()} />
-<Button title="edit" onPress={() => navigation.navigate('PostEdit', {itemId})}
-/>
-</View>
 </View>
 );
 }
@@ -71,3 +92,32 @@ console.error(error);
 navigation.navigate('PostList');
 }
 }
+
+const styles = StyleSheet.create({
+
+container:{
+      backgroundColor: '#171615',
+        height: 40,
+        
+        alignItems: 'center',
+        flexDirection: 'row',        
+
+    },
+    
+    button:{
+        width: 24,
+        height: 24,
+        marginRight: 150,
+    },
+
+    buttonContainer:{
+        flexDirection: 'row-reverse',
+        marginLeft: 20,
+    },
+    
+    buttonInput:{
+        width: 32,
+        height: 32,
+    }
+
+})
